@@ -34,13 +34,14 @@ For visualization using networkx and matplotlib, we create graphs of the followi
 - look the petersen graph non colored
 
 
-    
-<img src="src/fig1.png" alt="Graph non colored" width="400"/>
+<p align="center">
+    <img src="src/fig1.png" alt="Graph non colored" width="400"/>
+</p>
 
 - Same graph after find propper k-coloration
-
-<img src="src/fig2.png" alt="Graph non colored" width="400"/>
-
+<p align="center">
+    <img src="src/fig2.png" alt="Graph non colored" width="400"/>
+</p>
 
 
 # Disclaimer
