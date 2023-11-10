@@ -1,9 +1,10 @@
 # Graph Coloring
-# Description
-This repository is dedicated to the development of a tool and associated resources for encoding a Turing machine into binary sequences, and binary sequences to Turing machine.
+
+In graph theory, graph coloring is a special case of graph labeling; it is an assignment of labels called colors to elements of the graph. Simply put, a coloring of the vertices of a graph such that no adjacent vertices share the same color is called vertex coloring.
+
+
 
 # Motivation
-
 In graph theory class, looking at graph coloring, We saw the greedy coloring algorithm and were asked to implement it in Python. This repository takes that implementation to the next level.
 
 # Topics
