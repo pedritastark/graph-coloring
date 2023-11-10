@@ -42,3 +42,8 @@ For visualization using networkx and matplotlib, we create graphs of the followi
 <img src="src/fig2.png" alt="Graph non colored" width="400"/>
 
 
+
+# Disclaimer
+
+This project is in its early stages of development. All errors are attributable to me. We appreciate any contributions to improve the content.
+
