@@ -22,4 +22,23 @@ Vertices with the same color form a color class.
 A k-coloring is proper if adjacent vertices have different labels:
       
   -  (∀u, v ∈ V(G))(u↔v → f(u) ≠ f(v))
+# Visualization
+
+For visualization using networkx and matplotlib, we create graphs of the following way:
+
+
+
+
+
+
+- look the petersen graph non colored
+
+
+    
+<img src="src/fig1.png" alt="Graph non colored" width="400"/>
+
+- Same graph after find propper k-coloration
+
+<img src="src/fig2.png" alt="Graph non colored" width="400"/>
+
 
