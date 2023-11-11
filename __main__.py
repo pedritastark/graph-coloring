@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -7,11 +6,11 @@ Created on Thu Nov  9 17:43:13 2023
 @author: sebastianpedraza
 """
 
+'Module for type annotations'
+from typing import Dict, List, Optional, Type
 
-from typing import Dict, List, Optional
 
-
-'library to find chromatic num'
+'Module to find chromatic num'
 from itertools import permutations
 
 
@@ -44,7 +43,7 @@ class Graph:
         
 
 
-    def visualize(self: Dict[int, list], coloration: Dict[int, int] ) -> None:
+    def visualize(self: Dict[int, List[int]], coloration: Dict[int, int] ) -> None:
         
         '''
         Description: Using networkx and matplotlib, we represent graphs using plots.
@@ -57,8 +56,8 @@ class Graph:
         
         G = nx.Graph(self.G)
         pos = nx.spring_layout(G)
-        colores = [coloration.get(nodo, 0) for nodo in G.nodes()]
-        nx.draw(G, pos, with_labels=True, node_color=colores, cmap=plt.cm.rainbow, font_color='white')
+        colors = [coloration.get(nodo, 0) for nodo in G.nodes()]
+        nx.draw(G, pos, with_labels=True, node_color=colors, cmap=plt.cm.rainbow, font_color='white')
         plt.show()    
         
         return None
@@ -82,9 +81,9 @@ class Graph:
         while len(coloration) < len(self.G):
             color += 1
     
-            for node, adjacents in self.G.items():
-                if node not in coloration and all(coloration.get(x) != color for x in adjacents):
-                    coloration[node] = color
+            for vertice, adjacents in self.G.items():
+                if vertice not in coloration and all(coloration.get(x) != color for x in adjacents):
+                    coloration[vertice] = color
                     
                     
         if show: self.visualize(coloration)
@@ -92,12 +91,11 @@ class Graph:
         return coloration
     
     
-        
 
     
     
     
-    def chromatic(self: dict[int, list], show: bool = False) -> int:   
+    def chromatic(self: Dict[int, List[int]], show: bool = False) -> int:   
     
         '''
         Description: Evaluating the k-coloring with every possible combination of the n vertices,
@@ -119,33 +117,34 @@ class Graph:
         return coloration, chromatic
 
 
-
-def simple_graph_generator(n: int =  4)-> Dict[int, List[int]]:
-    
-    '''
-    Description: We generate a graph in the following way:
-    G = {v1: [adjacents node to v1], v2: [adjacents node to v2], ...,  n: [adjacents node to vn]},
-    but not in ascending order, but randomly.
-    
-    Input: |V(G)| default = 7
+    @staticmethod
+    def simple_graph_generator(n: int = 6) -> Type['Graph']:
         
-    Output: G = {vi: [adjacents node to v1], vj: [adjacents node to v2], ...,  n: [adjacents node to vn]}
-    '''
-    
-
-    graph   =   {}
-    nodes   =   list(range(1, n + 1))
-    
-    for node in nodes:
+        '''
+        Description: We generate a graph in the following way:
+        G = {v1: [adjacents node to v1], v2: [adjacents node to v2], ...,  n: [adjacents node to vn]},
+        but not in ascending order, but randomly.
         
-        adjacents   = random.sample([n for n in nodes if n != node] + [node], min(random.randint(1, n - 1), len([n for n in nodes if n != node] + [node])))
-        graph.setdefault(node, [])
+        Input: |V(G)| default = 7
+            
+        Output: G = {vi: [adjacents node to v1], vj: [adjacents node to v2], ...,  n: [adjacents node to vn]}
+        '''
         
-        for adjacent in adjacents:
-            graph.setdefault(adjacent, []).append(node)
-            if node != adjacent: graph[node] = list(set(graph[node] + [adjacent]))
+    
+        graph   =   {}
+        vertices   =   list(range(1, n + 1))
+        
+        for vertice in vertices:
+            
+            adjacents   = random.sample([v for v in vertices if v != vertice] + [vertice], min(random.randint(1, n - 1), len([v for v in vertices if v != vertice] + [vertice])))
+            graph.setdefault(vertice, [])
+            
+            for adjacent in adjacents:
+                graph.setdefault(adjacent, []).append(vertice)
+                if vertice != adjacent: graph[vertice] = list(set(graph[vertice] + [adjacent]))
+    
+        return  Graph({key: sorted(list(set(value) - {key})) for key, value in sorted(graph.items())})
 
-    return  {key: sorted(list(set(value) - {key})) for key, value in sorted(graph.items())}
 
 
 
@@ -155,7 +154,6 @@ if __name__ == "__main__":
     
     
     '''
-    
     Construction of some families of graphs for you to test the script , including petersen graph
     
     
@@ -166,13 +164,16 @@ if __name__ == "__main__":
     P_n : {i: [i - 1, i + 1] if 1 < i < n else [n - 1] if i == n else [2] for i in range(1, n + 1)}
     
     
-    petersen graph: {1: [2, 4, 3], 2: [1, 5, 9], 3: [1, 7, 8], 4: [1, 6, 10], 5: [2, 6, 8], 6: [4, 5, 7], 5: [2, 6, 8],
+    petersen graph: {1: [2, 4, 3], 2: [1, 5, 9], 3: [1, 7, 8], 4: [1, 6, 10], 5: [2, 6, 8],
                      6: [4, 5, 7], 7: [3, 6, 9], 8: [3, 5, 10], 9: [2, 7, 10], 10: [4, 8, 9]}
     '''
     
     
-    graph = Graph(simple_graph_generator())
+
     
-    print(graph.__str__(show=True))    
-    print(graph.chromatic(True))
+    graph = Graph.simple_graph_generator()
+    
+    # print(graph.__str__(show=True))    
+    # print(graph.greedy_coloring(True))
+    graph.chromatic(True)
 
